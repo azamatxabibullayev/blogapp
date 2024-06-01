@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    .post-entry {
+        margin-bottom: 20px;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .post-entry img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    .review {
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .review h4 {
+        margin-bottom: 5px;
+    }
+
+    .no-reviews {
+        color: #999;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="post-entry">
+    <img src="{{ post.image.url }}" alt="{{ post.name }}">
+    <h2>{{ post.title }}</h2>
+    <h3>{{ post.author }}</h3>
+    <p>{{ post.body }}</p>
+</div>
+<hr>
+
+<h2>Reviews</h2>
+<a href="{% url 'add_review' post.pk %}">Add Review</a>
+
+{% for review in reviews %}
+<div class="review">
+    <h4>{{ review.user.username }} | Rating: {{ review.rating }}</h4>
+    <p>{{ review.comment }}</p>
+    {% if user.is_authenticated and review.user == user %}
+    <form method="post" action="{% url 'review_delete' review.pk %}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+    <button><a href="{% url 'review_update' review.pk  %}">Update</a></button>
+    {% endif %}
+</div>
+{% empty %}
+<p class="no-reviews">No reviews yet.</p>
+{% endfor %}
+
+<hr>
+<p><a href="{% url 'post-edit' post.pk %}">Postni tahrirlash</a></p>
+<p><a href="{% url 'post-delete' post.pk %}">Postni O'chirish</a></p>
+<form method="post" action="{% url 'place_order' post.pk %}">
+    {% csrf_token %}
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
+
+    <label for="phone">Phone Number:</label>
+    <input type="text" id="phone" name="phone">
+
+    <button type="submit">Place Order</button>
+</form>
+{% endblock content %}

@@ -1,27 +1,17 @@
-"""
-URL configuration for blog project.
+from django.urls import path
+from .views import *
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('blogapp.urls'))
+    path('', BlogListView.as_view(), name='home'),
+    path('post/<int:pk>/', BlogDetailView.as_view(), name='post_detail'),
+    path('post/<int:pk>/edit', BlogUpdateView.as_view(), name='post-edit'),
+    path('post/<int:pk>/delete', BlogDeleteView.as_view(), name='post-delete'),
+    path('post/new/', BlogCreateView.as_view(), name='post_new'),
+    path('categories/', CategoryProductsListView.as_view(), name='category_products'),
+    path('categories/<int:pk>/', BlogListView1.as_view(), name='posts_by_category'),
+    path('place_order/<int:pk>/', PlaceOrderView.as_view(), name='place_order'),
+    path('search/', SearchResultsView.as_view(), name='search_results'),
+    path('add_review/<int:pk>', AddReviewView.as_view(), name='add_review'),
+    path('review_delete/<int:pk>', ReviewDeleteView.as_view(), name='review_delete'),
+    path('review_update/<int:pk>', ReviewUpdateView.as_view(), name='review_update'),
 ]
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
