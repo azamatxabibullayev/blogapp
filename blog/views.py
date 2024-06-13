@@ -99,17 +99,3 @@ class SearchResultsView(View):
         posts = Post.objects.filter(name__icontains=query)
         return render(request, self.template_name, {'posts': posts})
 
-
-class PlaceOrderView(View):
-    def post(self, request, pk):
-        post = get_object_or_404(Post, pk=pk)
-        username = request.POST.get('username')
-        phone = request.POST.get('phone')
-
-        order = Order.objects.create(
-            user=username,
-            number=phone
-        )
-
-        messages.success(request, "You ordered successfully!")
-        return redirect('post_detail', pk=pk)

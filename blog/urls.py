@@ -9,7 +9,6 @@ urlpatterns = [
     path('post/new/', BlogCreateView.as_view(), name='post_new'),
     path('categories/', CategoryProductsListView.as_view(), name='category_products'),
     path('categories/<int:pk>/', BlogListView1.as_view(), name='posts_by_category'),
-    path('place_order/<int:pk>/', PlaceOrderView.as_view(), name='place_order'),
     path('search/', SearchResultsView.as_view(), name='search_results'),
     path('add_review/<int:pk>', AddReviewView.as_view(), name='add_review'),
     path('review_delete/<int:pk>', ReviewDeleteView.as_view(), name='review_delete'),

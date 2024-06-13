@@ -101,14 +101,4 @@
 <hr>
 <p><a href="{% url 'post-edit' post.pk %}">Postni tahrirlash</a></p>
 <p><a href="{% url 'post-delete' post.pk %}">Postni O'chirish</a></p>
-<form method="post" action="{% url 'place_order' post.pk %}">
-    {% csrf_token %}
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username">
-
-    <label for="phone">Phone Number:</label>
-    <input type="text" id="phone" name="phone">
-
-    <button type="submit">Place Order</button>
-</form>
 {% endblock content %}
