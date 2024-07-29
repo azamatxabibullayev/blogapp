@@ -2,13 +2,13 @@ Welcome to blogg website !
 
 Steps to use :
 
-git clone https://github.com/azamatxabibullayev/finance_manager
-Open folder on terrminal
-source .venv/bin/activate
-pip install -r requirements.txt
-python3 manage.py makemigrations
-python3 manage.py migrate
-python3 manage.py runserver
+1.git clone https://github.com/azamatxabibullayev/blogapp
+2.Open folder on terrminal
+3.source .venv/bin/activate
+4.pip install -r requirements.txt
+5.python3 manage.py makemigrations
+6.python3 manage.py migrate
+7.python3 manage.py runserver
 
 
 User account to use:
