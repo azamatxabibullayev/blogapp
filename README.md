@@ -4,7 +4,7 @@ Steps to use :
 
 1.git clone https://github.com/azamatxabibullayev/blogapp
 
-2.Open folder on terrminal
+2.Open folder on terminal
 
 3.source .venv/bin/activate
 
