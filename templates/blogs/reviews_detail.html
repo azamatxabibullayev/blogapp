@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% for r in reviews %}
+        <h4>{{ r.user }}</h4>
+        <p>{{ r.comment }}</p>
+        Star given: {{ r.star_given }}<br><br>
+    {% endfor %}
+        <a href="{% url 'blogs:articles-detail' article.pk %}">Back</a>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Watch Later Articles{% endblock %}
+
+{% block content %}
+
+    {% if articles %}
+        <div class="cards">
+            {% for a in articles %}
+                <div class="card">
+                    <img src="{{ a.image.url }}" alt="Not found" class="card-img">
+                    <h2>{{a.title}}</h2>
+                    <h4>Author:{{a.author}}</h4>
+                    <div class="star-rating" data-rating="{{ a.star_given }}">
+                        <span class="stars"></span>
+                    </div>
+                    <a href="{% url 'blogs:articles-detail' a.pk %}"><button>Read More</button></a>
+                    <form action="{% url 'blogs:remove-watch-later' a.pk %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="remove-button">Remove</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No article to watch later.</p>
+    {% endif %}
+{% endblock %}
+

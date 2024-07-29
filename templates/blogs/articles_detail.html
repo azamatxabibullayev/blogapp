@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %} {{article.title}} {% endblock %}
+{%block content %}
+    <div class="main_page">
+        <div class="article-container ">
+            <h1>{{ article.title }}</h1> 
+            
+            <img src="{{ article.image.url }}" alt="Article Image">
+            
+            <h4>Written by: {{ article.author }}</h4>
+            
+            <div class="content">
+                <p>{{ article.text }}</p>
+            </div>
+            <div class="footer">
+                <a href="{% url 'blogs:review-detail' article.pk %}">Reviews</a> |
+                <a href="{% url 'blogs:add-review' article.pk%}">Add Review</a>
+            </div>
+            <div class="footer">
+                <a href="{% url 'blogs:articles-update' article.pk %}">Edit</a> |
+                <a href="{% url 'blogs:articles-add' %}">Add</a> |
+                <a href="{% url 'blogs:delete-article' article.pk %}">Delete</a>
+            </div>
+
+            <div class="footer">
+                <a href="{% url 'blogs:category-list' %}">Back to Categories</a>
+            </div>
+            
+            <div class="interaction-buttons">
+                
+                <form action="{% url 'blogs:articles-like' pk=article.pk %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Like</button>
+                </form>
+                
+                <form action="{% url 'blogs:articles-watch-later' article.pk %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Watch Later</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

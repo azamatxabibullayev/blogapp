@@ -2,107 +2,401 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %} {% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Site{% endblock %}</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
             background-color: #f4f4f4;
+            color: #333;
         }
 
-        .success-message {
-            margin: 20px;
-            padding: 10px;
-            background-color: #dff0d8;
-            border: 1px solid #d6e9c6;
+        header {
+            background: #222;
+            color: #fff;
+            padding: 20px 0;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            padding: 10px 15px;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover {
+            background: #444;
+            border-radius: 5px;
+        }
+
+        .card-profile {
+            max-width: 350px;
+            margin: 30px auto;
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .card-profile img {
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .card-profile h2 {
+            margin: 10px 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .card-profile h3 {
+            margin: 5px 0;
+            font-size: 18px;
+            color: #777;
+        }
+
+        .card-profile button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #222;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .card-profile button a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .card-profile button:hover {
+            background-color: #555;
+        }
+
+        .main_page {
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #222;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        form input[type="text"],
+        form input[type="password"],
+        form input[type="email"],
+        form button {
+            padding: 12px;
+            border: 1px solid #ddd;
             border-radius: 4px;
-            color: #3c763d;
+            transition: border 0.3s;
         }
 
-        .messages {
-            list-style-type: none;
+        form input[type="text"]:focus,
+        form input[type="password"]:focus,
+        form input[type="email"]:focus {
+            border-color: #222;
+        }
+
+        form button {
+            background: #222;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        form button:hover {
+            background: #555;
+        }
+
+        footer {
+            background: #222;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .message-m {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            z-index: 1000;
+        }
+
+        ul.messages {
+            list-style: none;
             padding: 0;
+            margin: 0;
         }
 
         .messages li {
             margin-bottom: 10px;
-        }
-
-        .alert-success {
-            color: #3c763d;
-            background-color: #dff0d8;
-            border-color: #d6e9c6;
             padding: 10px;
-            border-radius: 4px;
+            border-radius: 5px;
+            color: #fff;
+            opacity: 0.9;
+            font-size: 14px;
+            transition: opacity 0.5s, transform 0.5s;
         }
 
-        h1 a {
+        .messages li.info {
+            background-color: #31708f;
+        }
+
+        .messages li.success {
+            background-color: #3c763d;
+        }
+
+        .messages li.warning {
+            background-color: #8a6d3b;
+        }
+
+        .messages li.error {
+            background-color: #a94442;
+        }
+
+        .messages li:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .content {
+            margin-bottom: 50px;
+        }
+
+        .add-article-container {
+            margin-top: 20px;
+        }
+
+        .add-article a {
             text-decoration: none;
-            color: #333;
+            color: #fff;
+            background-color: #222;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
         }
 
-        h1 a:hover {
-            color: #007BFF;
+        .add-article a:hover {
+            background-color: #555;
         }
 
-        a {
-            color: #007BFF;
-            text-decoration: none;
-            margin: 0 10px;
+        .card {
+            width: 280px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #fff;
+            overflow: hidden;
         }
 
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .nav-links {
-            margin: 20px 0;
-        }
-
-        .nav-links a {
-            margin-right: 15px;
-        }
-
-        .container {
-            max-width: 800px;
+        .cards {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            max-width: 1200px;
             margin: 0 auto;
+        }
+
+        .card button {
+            border: none;
+            outline: 0;
+            padding: 12px;
+            color: #fff;
+            background-color: #222;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 0 0 10px 10px;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+
+        .card button:hover {
+            background-color: #555;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .star-rating {
+            display: inline-block;
+            font-size: 0;
+            margin: 10px 0;
+        }
+
+        .stars {
+            display: inline-block;
+            font-size: 24px;
+            line-height: 1;
+            color: #FFD700; /* Gold color for stars */
+        }
+
+        .read-more-btn {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .read-more-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .article-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 800px;
             padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .article-container img {
+            display: block;
+            margin: 0 auto;
+            height: 250px;
+            width: auto; /* Adjust this if you need a specific width */
+        }
+
+        .article-container .content p {
+            text-align: justify;
+        }
+
+        .footer {
+            align-self: flex-start;
+            margin-top: 20px; /* Adjust as needed */
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: #007BFF; /* Adjust color as needed */
         }
     </style>
 </head>
 <body>
-<div class="success-message">
-    {% if messages %}
+{% if messages %}
+<div class="message-m">
     <ul class="messages">
         {% for message in messages %}
-        <li class="{{ message.tags }}">
-            <h4 class="alert-success text-center" style="padding-top: 5px;">{{ message.content }}</h4>
+        <li
+                {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+            {% if message.level == 40 %}Important: {% endif %}
+            {{ message }}
         </li>
         {% endfor %}
     </ul>
-    {% endif %}
 </div>
+{% endif %}
+<header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home:home_page' %}">Home</a></li>
+            <li><a href="{% url 'blogs:category-list' %}">Read Articles</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'users:profile' %}">Profile</a></li>
+            <li><a href="{% url 'blogs:liked-articles' %}">Liked Articles</a></li>
+            <li><a href="{% url 'blogs:watch-later-articles' %}">Watch Later Articles</a></li>
+            <li><a href="{% url 'users:logout' %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'users:login' %}">Login</a></li>
+            <li><a href="{% url 'users:register' %}">Register</a></li>
+            {% endif %}
+            <li>
+                <form action="{% url 'blogs:search' %}" method="get" style="display: inline;">
+                    <input type="text" name="q" placeholder="Search blogs..." required>
+                    <button type="submit">Submit</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main>
+    {% block content %}{% endblock %}
+</main>
+<footer>
+    <p>&copy; 2024 My Site</p>
+    <a href="{% url 'blogs:articles-add' %}">
+        <button class="footer-button">
+            Add article
+        </button>
+    </a>
+</footer>
 
-<div class="container">
-    <h1><a href="{% url 'home' %}">Blog site</a></h1>
-    <div class="nav-links">
-        <a href="{% url 'users:register' %}">Register</a> /
-        {% if request.user.is_authenticated %}
-        <a href="{% url 'users:profile' %}">Profile</a>/
-        {% endif %}
-        {% if request.user.is_authenticated %}
-        <a href="{% url 'users:logout' %}">Logout</a>
-        {% else %}
-        <a href="{% url 'users:login' %}">Login</a>
-        {% endif %}
-    </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            const messages = document.querySelectorAll('.messages li');
+            messages.forEach(function(message) {
+                message.style.display = 'none';
+            });
+        }, 5000);
+    });
 
-    {% block content %}
-    {% endblock content %}
-</div>
+    document.addEventListener('DOMContentLoaded', function() {
+        const starContainers = document.querySelectorAll('.star-rating');
+
+        starContainers.forEach(container => {
+            const rating = container.getAttribute('data-rating');
+            const starSpan = container.querySelector('.stars');
+            starSpan.innerHTML = getStars(rating);
+        });
+
+        function getStars(rating) {
+            const maxStars = 5;
+            let stars = '';
+            for (let i = 0; i < maxStars; i++) {
+                if (i < rating) {
+                    stars += '&#9733;'; // Filled star
+                } else {
+                    stars += '&#9734;'; // Empty star
+                }
+            }
+            return stars;
+        }
+    });
+</script>
 </body>
 </html>

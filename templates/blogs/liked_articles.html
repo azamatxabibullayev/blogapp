@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Liked Articles{% endblock %}
+
+{% block content %}
+    {% if liked_articles %}
+        <div class="cards">
+            {% for a in liked_articles %}
+                <div class="card">
+                    <img src="{{ a.image.url }}" alt="Not found" class="card-img">
+                    <h2>{{a.title}}</h2>
+                    <h4>Author:{{a.author}}</h4>
+                    <div class="star-rating" data-rating="{{ a.star_given }}">
+                        <span class="stars"></span>
+                    </div>
+                    <a href="{% url 'blogs:articles-detail' a.pk %}"><button>Read More</button></a>
+                    <form action="{% url 'blogs:unlike-articles' a.pk %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="unlike-button">Unlike</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No liked articles.</p>
+    {% endif %}
+{% endblock %}

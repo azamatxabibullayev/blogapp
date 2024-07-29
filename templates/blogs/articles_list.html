@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if articles %}
+        <div class="cards">
+            {% for a in articles %}
+                <div class="card">
+                    <img src="{{ a.image.url }}" alt="Not found" class="card-img">
+                    <h2>{{a.title}}</h2>
+                    <h4>Author:{{a.author}}</h4>
+                    <div class="star-rating" data-rating="{{ a.star_given }}">
+                        <span class="stars"></span>
+                    </div>
+                    <a href="{% url 'blogs:articles-detail' a.pk %}"><button>Read More</button></a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No available articles to read now.</p>
+        <a href="{% url 'blogs:category-list' %}">Back to Categories</a>
+    {% endif %}
+{% endblock content %}
+
+

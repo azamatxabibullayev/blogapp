@@ -1,7 +1,6 @@
 from django import forms
 from users.models import CustomUser
 
-
 class CustomUserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
 
@@ -15,7 +14,7 @@ class CustomUserForm(forms.ModelForm):
         if commit:
             user.save()
         return user
-
+    
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
